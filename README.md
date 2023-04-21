@@ -9,7 +9,7 @@ Follow these steps to run the project on your local machine:
 Clone the repository to your local machine using the command:
 
 
-'git clone <repository_url>
+```git clone <repository_url>```
 
 Navigate to the project directory:
 
