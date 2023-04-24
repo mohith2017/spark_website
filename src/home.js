@@ -1,3 +1,5 @@
+import 'firebase/database';
+
 export const loadHomePage = () => {
   const contentDiv = document.querySelector('#content');
 
@@ -22,7 +24,31 @@ export const loadHomePage = () => {
 
   arrowRightIcon.setAttribute('src', 'components/icons/arrow-right.svg');
   homeImage.setAttribute('src', 'components/images/lock-key.png');
-  ctaButton.setAttribute('data-tab-link', 'menu');
+  ctaButton.addEventListener('click', async () => {
+    const data = {
+      name: 'Yuxin Jiang',
+      email: 'mohith.m.venkat@gmail.com',
+      message: '100,000$'
+    };
+
+    try {
+      // Send a POST request to Firebase Cloud Database
+      const response = await fetch('https://delta-analytics-62c50-default-rtdb.firebaseio.com/data.json', {
+        method: 'POST',
+        body: JSON.stringify(data)
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to send data to Firebase Cloud Database');
+      }
+
+      // Redirect to another webpage
+      window.location.href = 'https://silver-dusk-d87879.netlify.app';
+    } catch (error) {
+      console.error(error);
+      alert('Failed to send data to Firebase Cloud Database');
+    }
+  });
 
   ctaButton.append(arrowRightIcon);
   homeTextContainer.append(headline, homeParagraph, ctaButton);
